@@ -96,7 +96,14 @@ def get_max_salary(path):
     int
         The maximum salary paid out of all job opportunities
     """
-    pass
+    document = read(path)
+    set_result = {
+        int(salaries["max_salary"])
+        for salaries in document
+        if salaries["max_salary"].isnumeric()
+    }
+
+    return max(set_result)
 
 
 def get_min_salary(path):
