@@ -36,7 +36,7 @@ def filter_by_job_type(jobs, job_type):
     list
         List of jobs with provided job_type
     """
-    return []
+    return [job for job in jobs if job["job_type"] == job_type]
 
 
 def get_unique_industries(path):
@@ -78,7 +78,7 @@ def filter_by_industry(jobs, industry):
     list
         List of jobs with provided industry
     """
-    return []
+    return [job for job in jobs if job["industry"] == industry]
 
 
 def get_max_salary(path):
@@ -121,7 +121,14 @@ def get_min_salary(path):
     int
         The minimum salary paid out of all job opportunities
     """
-    pass
+    document = read(path)
+    set_result = {
+        int(salaries["min_salary"])
+        for salaries in document
+        if salaries["min_salary"].isnumeric()
+    }
+
+    return min(set_result)
 
 
 def matches_salary_range(job, salary):
